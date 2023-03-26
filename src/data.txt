@@ -1,0 +1,21 @@
+id,nama,harga,stok,terjual
+15163,Ultra Milk Plain 1000 ML,18500,2153,4130
+13246,Sunlight Lime 650 ML,14900,68,47
+74632,Coca Cola Pet 1.5 L,13500,347,259
+53675,Indomie Soto 70 gr,3000,645,583
+74612,Yakult 5 btl,10500,127,259
+23165,Fiesta Chicken Nugget,62900,54,254
+76982,Tepung Terigu Segitigabiru,35,284
+85732,Bear Brand 189 ML,9800,154,279
+76439,Madu Uray 875 gr,130900,67,102
+86532,Le Minerale 15 L,18900,52,117
+78589,Marjan Syrup Melon,17900,342,2511
+67653,Bango Kecap Manis,11900,47,62
+90653,Indomie Goreng Jumbo,4100,41,287
+76094,Blue Band 200 g,13100,87,107
+87557,Beng Beng 95 g,12900,54,108
+67843,Rapika Ungu 425 ML,5100,23,62
+12674,Wipol Classic Pine,14900,35,74
+21376,Nuvo Body Wash,18500,92,251
+57854,Dancow Full Cream,92500,27,106
+78541,Fiesta Stikie,62900,63,103
