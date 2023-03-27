@@ -5,7 +5,7 @@ id,nama,harga,stok,terjual
 53675,Indomie Soto 70 gr,3000,645,583
 74612,Yakult 5 btl,10500,127,259
 23165,Fiesta Chicken Nugget,62900,54,254
-76982,Tepung Terigu Segitigabiru,35,284
+76982,Tepung Terigu Segitigabiru,14900,35,284
 85732,Bear Brand 189 ML,9800,154,279
 76439,Madu Uray 875 gr,130900,67,102
 86532,Le Minerale 15 L,18900,52,117
