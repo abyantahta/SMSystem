@@ -1,3 +1,5 @@
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.io.FileInputStream;
@@ -261,12 +263,84 @@ class AVLTree {
         }
     }
 
-    public void print() {
+    public void displayAll() {
+        System.out.println("\tNama Barang \tHarga \tStok \tTerjual");
         for (AVLNode node : nodeList) {
-            System.out.println(node.barang.getName() + " " + node.barang.getPrice() + " " + node.barang.getStock() + " "
-                    + node.barang.getSold());
+            System.out.println(
+                    node.barang.getName() + " \t" + node.barang.getPrice() + " \t" + node.barang.getStock() + " \t"
+                            + node.barang.getSold());
         }
     }
+
+    public void sortByPrice() {
+        Collections.sort(nodeList, new Comparator<AVLNode>() {
+            @Override
+            public int compare(AVLNode o1, AVLNode o2) {
+                return o1.barang.getPrice() - o2.barang.getPrice();
+            }
+        });
+    }
+
+    public void sortByStock() {
+        Collections.sort(nodeList, new Comparator<AVLNode>() {
+            @Override
+            public int compare(AVLNode o1, AVLNode o2) {
+                return o1.barang.getStock() - o2.barang.getStock();
+            }
+        });
+    }
+
+    public void displayBarang(int id) {
+        AVLNode node = search(id);
+        if (node != null) {
+            System.out.println(node.barang.getName() + " " + node.barang.getPrice() + " " + node.barang.getStock() + " "
+                    + node.barang.getSold());
+        } else {
+            System.out.println("Barang tidak ditemukan");
+        }
+    }
+
+    public void updateBarang(int id, int stock, int sold) {
+        AVLNode node = search(id);
+        if (node != null) {
+            node.barang.setStock(stock);
+            node.barang.setSold(sold);
+        } else {
+            System.out.println("Barang tidak ditemukan");
+        }
+    }
+
+    public void getTotalStock() {
+        int total = 0;
+        for (AVLNode node : nodeList) {
+            total += node.barang.getStock();
+        }
+        System.out.println("Total stok barang: " + total);
+    }
+
+    public void sellBarang(int id, int amount) {
+        AVLNode node = search(id);
+        if (node != null) {
+            if (node.barang.getStock() >= amount) {
+                node.barang.setStock(node.barang.getStock() - amount);
+                node.barang.setSold(node.barang.getSold() + amount);
+            } else {
+                System.out.println("Stok tidak mencukupi");
+            }
+        } else {
+            System.out.println("Barang tidak ditemukan");
+        }
+    }
+
+    public void restockBarang(int id, int amount) {
+        AVLNode node = search(id);
+        if (node != null) {
+            node.barang.setStock(node.barang.getStock() + amount);
+        } else {
+            System.out.println("Barang tidak ditemukan");
+        }
+    }
+
 }
 
 public class App {
@@ -295,7 +369,7 @@ public class App {
         }
 
         System.out.println("Data sebelum diurutkan");
-        tree.print();
+        tree.displayAll();
         System.out.println("Search data");
         tree.search("samsung");
     }
