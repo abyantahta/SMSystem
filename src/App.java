@@ -375,9 +375,9 @@ public class App {
             e.printStackTrace();
         }
         Scanner scanner1 = new Scanner(System.in);
-
+        System.out.println("Welcome to Stock Management System - AVL Tree");
         while (true) {
-            System.out.println("Welcome to Product Management System");
+            System.out.println("Our Menu:");
             System.out.println("1. Display all products");
             System.out.println("2. Create new product");
             System.out.println("3. Delete product");
