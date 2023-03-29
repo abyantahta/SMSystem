@@ -2,6 +2,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -264,11 +265,10 @@ class AVLTree {
     }
 
     public void displayAll() {
-        System.out.println("\tNama Barang \tHarga \tStok \tTerjual");
+        System.out.println("ID \tNama \tHarga \tStok \tTerjual");
         for (AVLNode node : nodeList) {
-            System.out.println(
-                    node.barang.getName() + " \t" + node.barang.getPrice() + " \t" + node.barang.getStock() + " \t"
-                            + node.barang.getSold());
+            System.out.println(node.barang.getId() + " " + node.barang.getName() + " " + node.barang.getPrice() + " "
+                    + node.barang.getStock() + " " + node.barang.getSold());
         }
     }
 
@@ -293,8 +293,9 @@ class AVLTree {
     public void displayBarang(int id) {
         AVLNode node = search(id);
         if (node != null) {
-            System.out.println(node.barang.getName() + " " + node.barang.getPrice() + " " + node.barang.getStock() + " "
-                    + node.barang.getSold());
+            System.out.println("ID \tNama \tHarga \tStok \tTerjual");
+            System.out.println(node.barang.getId() + " " + node.barang.getName() + " " + node.barang.getPrice() + " "
+                    + node.barang.getStock() + " " + node.barang.getSold());
         } else {
             System.out.println("Barang tidak ditemukan");
         }
@@ -305,6 +306,7 @@ class AVLTree {
         if (node != null) {
             node.barang.setStock(stock);
             node.barang.setSold(sold);
+            System.out.println("Barang berhasil diupdate");
         } else {
             System.out.println("Barang tidak ditemukan");
         }
@@ -324,6 +326,8 @@ class AVLTree {
             if (node.barang.getStock() >= amount) {
                 node.barang.setStock(node.barang.getStock() - amount);
                 node.barang.setSold(node.barang.getSold() + amount);
+                System.out.println("Barang berhasil terjual sejumlah " + amount + " buah, untuk barang "
+                        + node.barang.getName() + "");
             } else {
                 System.out.println("Stok tidak mencukupi");
             }
@@ -336,6 +340,8 @@ class AVLTree {
         AVLNode node = search(id);
         if (node != null) {
             node.barang.setStock(node.barang.getStock() + amount);
+            System.out.println("Barang berhasil direstock sejumlah " + amount + " buah, untuk barang "
+                    + node.barang.getName() + "");
         } else {
             System.out.println("Barang tidak ditemukan");
         }
@@ -345,6 +351,7 @@ class AVLTree {
 
 public class App {
     public static void main(String[] args) {
+
         AVLTree tree = new AVLTree();
         try {
             FileInputStream fileInputStream = new FileInputStream("data.txt");
@@ -367,10 +374,102 @@ public class App {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        Scanner scanner1 = new Scanner(System.in);
 
-        System.out.println("Data sebelum diurutkan");
-        tree.displayAll();
-        System.out.println("Search data");
-        tree.search("samsung");
+        while (true) {
+            System.out.println("Welcome to Product Management System");
+            System.out.println("1. Display all products");
+            System.out.println("2. Create new product");
+            System.out.println("3. Delete product");
+            System.out.println("4. Sort products");
+            System.out.println("5. Get product by ID");
+            System.out.println("6. Update product by ID");
+            System.out.println("7. Get total stock");
+            System.out.println("8. Sell product");
+            System.out.println("9. Restock product");
+            System.out.println("0. Exit");
+            System.out.print("Please enter your choice: ");
+            int choice = scanner1.nextInt();
+
+            switch (choice) {
+                case 1:
+                    tree.displayAll();
+                    break;
+                case 2:
+                    System.out.println("Enter product name: ");
+                    String name = scanner1.next();
+                    System.out.println("Enter product price: ");
+                    int price = scanner1.nextInt();
+                    System.out.println("Enter product stock: ");
+                    int stock = scanner1.nextInt();
+                    Random random = new Random();
+                    int id = random.nextInt(100000);
+                    tree.insert(new Barang(id, name, price, stock, 0));
+                    break;
+                case 3:
+                    System.out.println("Enter product ID: ");
+                    int id1 = scanner1.nextInt();
+                    tree.delete(id1);
+                    break;
+                case 4:
+                    System.out.println("1. Sort by price");
+                    System.out.println("2. Sort by stock");
+                    System.out.print("Please enter your choice: ");
+                    int choice1 = scanner1.nextInt();
+                    switch (choice1) {
+                        case 1:
+                            tree.sortByPrice();
+                            tree.displayAll();
+                            break;
+                        case 2:
+                            tree.sortByStock();
+                            tree.displayAll();
+                            break;
+                        default:
+                            System.out.println("Invalid choice!");
+                            break;
+                    }
+                    break;
+                case 5:
+                    System.out.println("Enter product ID: ");
+                    int id2 = scanner1.nextInt();
+                    tree.displayBarang(id2);
+                    break;
+                case 6:
+                    System.out.println("Enter product ID: ");
+                    int id3 = scanner1.nextInt();
+                    System.out.println("Enter product stock: ");
+                    int stock1 = scanner1.nextInt();
+                    System.out.println("Enter product sold: ");
+                    int sold = scanner1.nextInt();
+                    tree.updateBarang(id3, stock1, sold);
+                    break;
+                case 7:
+                    tree.getTotalStock();
+                    break;
+                case 8:
+                    System.out.println("Enter product ID: ");
+                    int id4 = scanner1.nextInt();
+                    System.out.println("Enter product amount: ");
+                    int amount = scanner1.nextInt();
+                    tree.sellBarang(id4, amount);
+                    break;
+                case 9:
+                    System.out.println("Enter product ID: ");
+                    int id5 = scanner1.nextInt();
+                    System.out.println("Enter product amount: ");
+                    int amount1 = scanner1.nextInt();
+                    tree.restockBarang(id5, amount1);
+                    break;
+                case 0:
+                    System.out.println("Thank you for using our system!");
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Invalid choice!");
+                    break;
+            }
+        }
+
     }
 }
